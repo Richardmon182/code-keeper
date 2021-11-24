@@ -1,0 +1,13 @@
+*Procesamiento condicional con IF-THEN / ELSE;
+data storm_cat;
+	set pg1.storm_summary;
+	keep Name Basin MinPressure StartDate PressureGroup;
+	*add ELSE keyword and remove final condition; *--done;
+	if MinPressure=. then PressureGroup=.;
+	else if MinPressure<=920 then PressureGroup=1;
+	else PressureGroup=0;
+run;
+
+proc freq data=storm_cat;
+	tables PressureGroup;
+run;

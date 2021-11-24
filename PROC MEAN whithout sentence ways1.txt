@@ -1,0 +1,6 @@
+proc means data=pg1.storm_final mean median max;
+	var MaxWindMPH;
+	class BasinName;
+	*ways 1;
+	output out=wind_stats;
+run;

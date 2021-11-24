@@ -1,0 +1,32 @@
+/*Exportación_csv*/
+
+%let outpath=/home/u59809375/EPG194/output;
+
+proc export data=pg1.storm_final
+     outfile="&outpath/storm_final.csv"
+     dbms=csv replace;
+run; 
+
+
+
+libname xl_lib xlsx "&outpath/storm.xlsx";
+
+data xl_lib.storm_final;
+    set pg1.storm_final;
+    drop Lat Lon Basin OceanCode;
+run;
+
+libname xl_lib clear;
+
+
+
+
+libname xl_ric xlsx "&outpath/storm_summary.xlsx";
+
+data xl_ric.storm_summary;
+    set pg1.storm_summary;
+    *drop Lat Lon Basin OceanCode;
+run;
+
+libname xl_ric clear;
+

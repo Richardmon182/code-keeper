@@ -1,0 +1,27 @@
+title1 'Estadísticas meteorológicas por año y parque';
+proc means data=pg1.np_westweather mean min max maxdec=2;
+    var Precip Snow TempMin TempMax;
+    class Year Name;
+run;
+
+
+*Crear una tabla de salida con columnas personalizadas;
+proc means data=pg1.np_westweather noprint;
+    where Precip ne 0;
+    var Precip;
+    class Name Year;
+	ways 2;
+	output out=rainstats n=RainDays sum=TotalRain;
+run;
+
+
+
+
+title1 'Estadísticas de lluvia por año y parque';
+proc print data=rainstats label noobs;
+    var Name Year RainDays TotalRain;
+    label Name='Park Name'
+          RainDays='Number of Days Raining'
+          TotalRain='Total Rain Amount (inches)';
+run;
+title;

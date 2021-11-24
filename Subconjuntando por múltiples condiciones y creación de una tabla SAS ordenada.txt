@@ -1,0 +1,30 @@
+/*Subconjuntando por múltiples condiciones y creación de una tabla SAS ordenada*/
+
+
+data fox;
+    set pg1.np_species;
+    where Category='Mammal' and upcase(Common_Names) like '%FOX%';  
+    drop Category Record_Status Occurrence Nativeness;
+run;
+
+
+*sentencia WHERE para excluir filas que incluyen Squirrel;
+data fox;
+    set pg1.np_species;
+    where Category='Mammal' and upcase(Common_Names) like '%FOX%' 
+        and upcase(Common_Names) not like '%SQUIRREL%';    
+    drop Category Record_Status Occurrence Nativeness;
+run;
+
+
+*Ordene la tabla fox por Common_Names;
+data fox;
+    set pg1.np_species;
+    where Category='Mammal' and upcase(Common_Names) like '%FOX%' 
+        and upcase(Common_Names) not like '%SQUIRREL%';    
+    drop Category Record_Status Occurrence Nativeness;
+run;
+
+proc sort data=fox;
+    by Common_Names;
+run;

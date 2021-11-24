@@ -1,0 +1,9 @@
+*Con ORDER = FREQ, el conteo más alto se enumera primero;
+title "Frequency Report for Basin and Storm Month";
+
+proc freq data=pg1.storm_final order=freq noprint;
+	tables StartDate / out=Month_count;
+	tables BasinName / out=Basin_count;
+	format StartDate monname.;
+run;
+

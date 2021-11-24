@@ -1,0 +1,21 @@
+*creación de columna StormLength y expresiones MEAN and RANGE;
+data storm_length;
+       set pg1.storm_summary;
+       drop Hem_EW Hem_NS lat lon;
+       StormLength = EndDate-StartDate;
+   run;
+
+
+*Expresiones numericas mean and range;
+data storm_windavg;
+    set pg1.storm_range;
+    WindAvg=mean(wind1, wind2, wind3, wind4);
+    WindRange=range(of wind1-wind4);
+run;
+
+*;
+data pacific;
+    set pg1.storm_summary;
+    drop type Hem_EW Hem_NS MinPressure Lat Lon;
+    where substr(Basin,2,1)="P";
+run;

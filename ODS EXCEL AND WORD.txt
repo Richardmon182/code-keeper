@@ -1,0 +1,58 @@
+/*ODS EXCEL AND WORD*/
+
+%let outpath=/home/u59809375/EPG194/output;
+
+*crear archivo excel;
+ods excel file="&outpath/StormStats.xlsx"
+    style=snow
+    options(sheet_name='South Pacific Summary');
+ods noproctitle;
+
+proc means data=pg1.storm_detail maxdec=0 median max;
+    class Season;
+    var Wind;
+    where Basin='SP' and Season in (2014,2015,2016);
+run;
+
+ods excel options(sheet_name='Detail');
+
+proc print data=pg1.storm_detail noobs;
+    where Basin='SP' and Season in (2014,2015,2016);
+    by Season;
+run;
+
+ods excel close;
+ods proctitle;
+
+
+
+
+*crear archivo word;
+ods rtf file="&outpath/ParkReport.rtf" style=Journal startpage=no;
+
+ods noproctitle;
+options nodate;
+
+title "US National Park Regional Usage Summary";
+
+proc freq data=pg1.np_final;
+    tables Region /nocum;
+run;
+
+proc means data=pg1.np_final mean median max nonobs maxdec=0;
+    class Region;
+    var DayVisits Campers;
+run;
+
+ods rtf style=SASDocPrinter;
+
+title2 'Day Vists vs. Camping';
+proc sgplot data=pg1.np_final;
+    vbar  Region / response=DayVisits;
+    vline Region / response=Campers;
+run;
+title;
+
+ods proctitle;
+ods rtf close;
+options date;
