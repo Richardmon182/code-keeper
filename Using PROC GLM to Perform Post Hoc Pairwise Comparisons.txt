@@ -1,0 +1,53 @@
+/*Using PROC GLM to Perform Post Hoc Pairwise Comparisons*/
+
+/*st102s02.sas*/
+/*The Tukey comparisons show significant differences between fertilizers 3 and 4 (p=0.0020) and 1 and 4 (p=0.0058).*/
+/*Recordar que las diferencias significativas se consideran en valores con 0.0099*/
+ods graphics;
+
+ods select lsmeans diff diffplot controlplot;
+proc glm data=STAT1.Garlic 
+         plots(only)=(diffplot(center) controlplot);
+   class Fertilizer;
+   model BulbWt=Fertilizer;
+   Tukey: lsmeans Fertilizer / pdiff=all adjust=tukey;
+   title "Post-Hoc Analysis of ANOVA - Fertilizer as Predictor";
+run;
+quit;
+
+title;
+
+
+
+/*st102s02.sas*/
+/*Use level 4 (the chemical fertilizer) as the control group and perform a Dunnett's*/
+ods graphics;
+
+ods select lsmeans diff diffplot controlplot;
+proc glm data=STAT1.Garlic 
+         plots(only)=(diffplot(center) controlplot);
+   class Fertilizer;
+   model BulbWt=Fertilizer;
+   Dunnett:lsmeans Fertilizer / pdiff=control('4') adjust=dunnett;
+   title "Post-Hoc Analysis of ANOVA - Fertilizer as Predictor";
+run;
+quit;
+
+title;
+
+
+/*st102s02.sas*/
+/*Perform unadjusted tests of all pairwise comparisons to compare results with the previous codes*/
+ods graphics;
+
+ods select lsmeans diff diffplot controlplot;
+proc glm data=STAT1.Garlic 
+         plots(only)=(diffplot(center) controlplot);
+   class Fertilizer;
+   model BulbWt=Fertilizer;
+   No_Adjust: lsmeans Fertilizer / pdiff=all adjust=t;
+   title "Post-Hoc Analysis of ANOVA - Fertilizer as Predictor";
+run;
+quit;
+
+title;
