@@ -1,0 +1,9 @@
+/*Declaración de un formato para diferentes tipos de vistas dependiendo la naturaleza de los datos*/
+proc print data=pg1.storm_summary(obs=20);
+	format Lat Lon 4. StartDate EndDate date9.;
+run;
+
+proc freq data=pg1.storm_summary order=freq;
+	tables StartDate;
+	*Add a FORMAT statement;
+run;

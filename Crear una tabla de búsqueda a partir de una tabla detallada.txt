@@ -1,0 +1,5 @@
+/*Crear una tabla de búsqueda a partir de una tabla detallada*/
+proc sort data=pg1.eu_occ out=countryList 
+          nodupkey;
+    by Geo Country;
+run;

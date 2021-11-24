@@ -1,0 +1,11 @@
+/*uso de formato 4. y date11. */
+proc print data=pg1.storm_summary(obs=20);
+	format Lat Lon 4. StartDate EndDate date11.;
+run;
+
+/*uso del formato MONNAME (nombre del mes)*/
+proc freq data=pg1.storm_summary order=freq;
+	tables StartDate;
+	format startdate monname.;
+run;
+

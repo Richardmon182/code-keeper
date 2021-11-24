@@ -1,0 +1,5 @@
+/*Muestra datos estadísticos de la tabla que se agregue (work.shoes) con condiciones mean, sum and MAXDEC=2*/
+proc means data=work.shoes mean sum MAXDEC=2;
+    var NetSales;
+    class region;
+run;

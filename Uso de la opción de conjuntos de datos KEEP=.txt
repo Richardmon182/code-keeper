@@ -1,0 +1,5 @@
+/*uso de la opción de conjuntos de datos KEEP=.*/
+proc sort data=pg1.eu_occ(keep=geo country hotel) out=countryList 
+          nodupkey;
+    by Geo Country;
+run;

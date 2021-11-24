@@ -1,0 +1,11 @@
+/* Eliminando la sensibilidad a mayúsculas y minúsculas en expresiones WHERE*/
+proc print data=pg1.np_traffic;
+    var ParkName Location Count;
+    where Count ne 0 and Location like '%MAIN ENTRANCE%';
+run;
+
+
+proc print data=pg1.np_traffic;
+    var ParkName Location Count;
+    where Count ne 0 and upcase(Location) like '%MAIN ENTRANCE%';
+run;

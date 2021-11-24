@@ -1,0 +1,19 @@
+/*Enlistar las primeras 15 filas*/
+proc print data=pg1.np_summary (obs=15);
+           var  Reg Type ParkName DayVisits TentCampers RVCampers;
+run;
+
+/*Calcular estadisticas resumidas*/
+proc means data=pg1.np_summary;
+           var DayVisits TentCampers RVCampers;
+run;
+
+/*Examinar valores extremos*/
+proc univariate data=pg1.np_summary;
+           var DayVisits TentCampers RVCampers;
+run;
+
+/*Enumerar valores únicos y conteos de frecuencia*/
+proc freq data=pg1.np_summary;
+           tables Reg Type;
+run;

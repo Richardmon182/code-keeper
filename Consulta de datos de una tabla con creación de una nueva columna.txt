@@ -1,0 +1,8 @@
+/*Muestra los datos de la tabla (work.shoes), agregando una nueva columna llamada NetSales*/
+data work.shoes;
+    set sashelp.shoes;
+    NetSales=Sales-Returns;
+	
+run;
+
+

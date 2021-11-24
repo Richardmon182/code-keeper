@@ -1,0 +1,12 @@
+/*creación de tabla temporal storm_cat5*/
+data storm_cat5;
+    set pg1.storm_summary;
+    where StartDate>="01jan2000"d and MaxWindMPH>=156; 
+    keep Season Basin Name Type MaxWindMPH; 
+run;
+
+/*creacion de una tabla permanente en la carpeta EPG194/output*/
+libname out "/home/u59809375/EPG194/output";
+data out.storm_cat5;
+set pg1.storm_summary;
+run;
