@@ -1,0 +1,23 @@
+/*Using PROC GLMSELECT to Perform Other Model Selection Techniques*/
+/*With the SELECTION=STEPWISE option, use SELECT=SBC in PROC GLMSELECT*/
+/*st104s02.sas*/ /*Part A*/
+ods graphics on;
+proc glmselect data=STAT1.bodyfat2 plots=all;
+   STEPWISESBC: model PctBodyFat2 = Age Weight Height Neck Chest Abdomen
+                      Hip Thigh Knee Ankle Biceps Forearm Wrist
+                      / SELECTION=STEPWISE SELECT=SBC;
+	title 'SBC STEPWISE Selection with PctBodyFat2';
+run;
+
+
+/*Modify the code to specify SELECT=AIC*/ /* Las diferentes opciones son "AIC, AICC, BIC, and SBC"*/
+/*st104s02.sas*/ /*Part B*/
+proc glmselect data=stat1.bodyfat2 plots=all;
+   STEPWISEAIC: model PctBodyFat2=Age Weight Height
+                      Neck Chest Abdomen Hip Thigh
+                      Knee Ankle Biceps Forearm Wrist
+                      / SELECTION=STEPWISE SELECT=AIC;
+   title 'AIC STEPWISE Selection with PctBodyFat2';
+run;
+quit;
+title;
